@@ -12,6 +12,7 @@
 
     Mozilla Developer Network for their awesome knowledgebase.
     GitHub for their generous free hosting.
+    MongoeDB's Flask & mongoengine tutorial: http://docs.mongodb.org/ecosystem/tutorial/write-a-tumblelog-application-with-flask-mongoengine/
 
 # TECHNOLOGY COLOPHON
 
