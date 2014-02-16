@@ -11,4 +11,4 @@ See pip.txt and npm.txt for package info & versions.
 
 ## Guides
 
-See [app/static/humans.txt]() for all the apps & tool used in this website.
+See [app/static/humans.txt](app/static/humans.txt) for all the apps & tool used in this website.
