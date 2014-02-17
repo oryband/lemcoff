@@ -3,8 +3,9 @@ from flask.ext import admin, login
 from flask.ext.admin import expose
 from flask.ext.admin.contrib.mongoengine import ModelView
 from wtforms import form, fields, validators
+from jinja2 import Markup
 
-from app import app, db
+from app import app, db, models
 
 
 class User(db.Document):
@@ -75,10 +76,6 @@ class MyModelView(ModelView):
     def is_accessible(self):
         return login.current_user.is_authenticated()
 
-    @expose('/')
-    def index(self):
-        return self.render('admin/index.html', user=login.current_user)
-
 
 class MyAdminIndexView(admin.AdminIndexView):
     """Create customized index view class."""
@@ -129,6 +126,23 @@ class MyAdminIndexView(admin.AdminIndexView):
         return redirect(url_for('.index'))
 
 
+class ImageView(ModelView):
+    def _list_thumbnail(view, context, model, name):
+        if not model.path:
+            return ''
+
+        return Markup('<img src="%s">' % url_for('static',
+                                                 filename=form.thumbgen_filename(model.path)))
+
+    column_formatters = {
+        'path': _list_thumbnail
+    }
+
+
 init_login()
 admin = admin.Admin(app, 'Auth', index_view=MyAdminIndexView())
+
 admin.add_view(MyModelView(User))
+admin.add_view(MyModelView(models.Entry))
+admin.add_view(MyModelView(models.Page))
+admin.add_view(ImageView(models.Image))

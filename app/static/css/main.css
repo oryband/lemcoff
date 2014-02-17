@@ -1,5 +1,5 @@
 html,button,input,select,textarea{color:#222}
-body{background:#fff;background-image:url("/img/bg.png");font:1.2em/1.4 Merriweather,serif}
+body{background:#fff;background-image:url("/static/img/bg.png");font:1.2em/1.4 Merriweather,serif}
 ::-moz-selection,::selection{background:#a8f26a;text-shadow:none}
 hr{border:0;border-top:1px solid #eee;display:block;height:1px;margin:1em 0;padding:0}
 img{vertical-align:middle}
