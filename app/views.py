@@ -1,6 +1,6 @@
 from flask import render_template
 
-from app import app, models
+from app import app
 
 
 @app.route('/')
@@ -8,36 +8,16 @@ def index():
     return render_template('index.html')
 
 
-def render_page(page):
-    entries = models.Entry.objects(page=page)
-    return render_template('page.html', page=page, entries=entries)
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('404.html'), 404
 
 
-@app.route('/research/')
-def research():
-    page = models.Page.objects(title='research').get()
-    return render_page(page)
+@app.route('/<file_name>.txt')
+def send_text_file(file_name):
+    return app.send_static_file('%s.txt' % file_name)
 
 
-@app.route('/publications/')
-def publications():
-    page = models.Page.objects(title='publications').get()
-    return render_page(page)
-
-
-@app.route('/members/')
-def members():
-    page = models.Page.objects(title='members').get()
-    return render_page(page)
-
-
-@app.route('/community/')
-def community():
-    page = models.Page.objects(title='community').get()
-    return render_page(page)
-
-
-@app.route('/links/')
-def links():
-    page = models.Page.objects(title='links').get()
-    return render_page(page)
+# TODO Render with markdown.
+# @app.route('/research/')
+# def research():

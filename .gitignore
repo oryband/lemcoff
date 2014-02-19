@@ -1,4 +1,6 @@
-lemcoff/
-node_modules/
+/venv/
+/node_modules/
+/app/static/uploads/
 *.pyc
+*.swp
 .DS_Store

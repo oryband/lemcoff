@@ -1,13 +1,15 @@
+import os.path as op
+
 from flask import Flask
-from flask.ext.mongoengine import MongoEngine
-from flask.ext.admin import Admin
 
 
 app = Flask(__name__)
 app.config.from_object('config')
-db = MongoEngine(app)
 
-from app import views, models, admin
+path = op.dirname(__file__)
+static = op.join(path, 'static')
+
+from app import views, admin
 
 
 if __name__ == '__main__':

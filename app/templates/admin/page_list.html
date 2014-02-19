@@ -1,0 +1,6 @@
+{% extends 'admin/file/list.html' %}
+
+{% block access_control %}
+{{ super() }}
+{% include 'admin/logout_button.html' %}
+{% endblock %}

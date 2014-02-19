@@ -1,63 +1,31 @@
+import os.path as op
+
 from flask import url_for, redirect, request
 from flask.ext import admin, login
 from flask.ext.admin import expose
-from flask.ext.admin.contrib.mongoengine import ModelView
-from wtforms import form, fields, validators
-from jinja2 import Markup
+from flask.ext.admin.contrib.fileadmin import FileAdmin
+from flask.ext.login import UserMixin
+from wtforms import fields, validators
+from wtforms.form import Form
 
-from app import app, db, models
-
-
-class User(db.Document):
-    """Create user model. For simplicity, it will store passwords in plain
-    text. Obviously that's not right thing to do in real world application.
-    """
-    login = db.StringField(max_length=80, unique=True)
-    password = db.StringField(max_length=64)
-
-    # Flask-Login integration
-    def is_authenticated(self):
-        return True
-
-    def is_active(self):
-        return True
-
-    def is_anonymous(self):
-        return False
-
-    def get_id(self):
-        return str(self.id)
-
-    # Required for administrative interface
-    def __unicode__(self):
-        return self.login
+from app import app, static
 
 
-class LoginForm(form.Form):
+class MyUser(UserMixin):
+    id = 'admin'
+
+
+# TODO Save password properly, not in plaintext!
+password = 'admin'
+class LoginForm(Form):
     """Define login and registration forms (for flask-login)."""
-    login = fields.TextField(validators=[validators.required()])
-    password = fields.PasswordField(validators=[validators.required()])
-
     def validate_login(self, field):
-        user = self.get_user()
-
-        if user is None:
-            raise validators.ValidationError('Invalid user')
-
-        if user.password != self.password.data:
+        print self.password.data
+        if self.password.data != password:
             raise validators.ValidationError('Invalid password')
 
-    def get_user(self):
-        return User.objects(login=self.login.data).first()
-
-
-class RegistrationForm(form.Form):
-    login = fields.TextField(validators=[validators.required()])
-    password = fields.PasswordField(validators=[validators.required()])
-
-    def validate_login(self, field):
-        if User.objects(login=self.login.data):
-            raise validators.ValidationError('Duplicate username')
+    password = fields.PasswordField(validators=[validators.required(),
+                                                validate_login])
 
 
 def init_login():
@@ -65,16 +33,9 @@ def init_login():
     login_manager = login.LoginManager()
     login_manager.setup_app(app)
 
-    # Create user loader function
     @login_manager.user_loader
     def load_user(user_id):
-        return User.objects(id=user_id).first()
-
-
-class MyModelView(ModelView):
-    """Create customized model view class."""
-    def is_accessible(self):
-        return login.current_user.is_authenticated()
+        return MyUser()
 
 
 class MyAdminIndexView(admin.AdminIndexView):
@@ -84,41 +45,20 @@ class MyAdminIndexView(admin.AdminIndexView):
     def index(self):
         if not login.current_user.is_authenticated():
             return redirect(url_for('.login_view'))
-        return super(MyAdminIndexView, self).index()
+        else:
+            return self.render('admin/index.html')
 
     @expose('/login/', methods=('GET', 'POST'))
     def login_view(self):
         form = LoginForm(request.form)
         if request.method == 'POST' and form.validate():
-            user = form.get_user()
-            login.login_user(user)
+            login.login_user(MyUser())
 
         if login.current_user.is_authenticated():
-            return redirect(url_for('.index'))
+            return redirect(url_for('pages.index'))
 
-        link = '<p>Don\'t have an account? <a href="' + url_for('.register_view') + '">Click here to register.</a></p>'
-        self._template_args['form'] = form
-        self._template_args['link'] = link
-
-        return self.render('admin/form.html')
-
-    @expose('/register/', methods=('GET', 'POST'))
-    def register_view(self):
-        form = RegistrationForm(request.form)
-        if request.method == 'POST' and form.validate():
-            user = User()
-
-            form.populate_obj(user)
-            user.save()
-
-            login.login_user(user)
-            return redirect(url_for('.index'))
-
-        link = '<p>Already have an account? <a href="' + url_for('.login_view') + '">Click here to log in.</a></p>'
-        self._template_args['form'] = form
-        self._template_args['link'] = link
-
-        return self.render('admin/form.html')
+        # self._template_args['form'] = form
+        return self.render('admin/login.html', form=form)
 
     @expose('/logout/')
     def logout_view(self):
@@ -126,23 +66,40 @@ class MyAdminIndexView(admin.AdminIndexView):
         return redirect(url_for('.index'))
 
 
-class ImageView(ModelView):
-    def _list_thumbnail(view, context, model, name):
-        if not model.path:
-            return ''
+class PageAdmin(FileAdmin):
+    """Page edit."""
+    can_upload = False
+    can_delete = False
+    can_delete_dirs = False
+    can_mkdir = False
+    can_rename = False
+    allowed_extensions = editable_extensions = ('jpg', 'jpeg', 'png', 'gif', 'tif', 'tiff', 'bmp')
 
-        return Markup('<img src="%s">' % url_for('static',
-                                                 filename=form.thumbgen_filename(model.path)))
+    list_template = 'admin/page_list.html'
 
-    column_formatters = {
-        'path': _list_thumbnail
-    }
+    @expose('/')
+    def index(self):
+        if not login.current_user.is_authenticated():
+            return redirect(url_for('admin.index'))
+        else:
+            return super(PageAdmin, self).index()
+
+
+class UploadAdmin(FileAdmin):
+    """Other file upload/edit (images, videos, etc.)"""
+    list_template = 'admin/upload_list.html'
+
+    @expose('/')
+    def index(self):
+        if not login.current_user.is_authenticated():
+            return redirect(url_for('admin.index'))
+        else:
+            return super(UploadAdmin, self).index()
 
 
 init_login()
-admin = admin.Admin(app, 'Auth', index_view=MyAdminIndexView())
 
-admin.add_view(MyModelView(User))
-admin.add_view(MyModelView(models.Entry))
-admin.add_view(MyModelView(models.Page))
-admin.add_view(ImageView(models.Image))
+admin = admin.Admin(app, 'Admin', index_view=MyAdminIndexView(name='Login'))
+
+admin.add_view(PageAdmin(op.join(static, 'pages'), '/static/pages/', name='Pages', endpoint='pages'))
+admin.add_view(UploadAdmin(op.join(static, 'uploads'), '/static/uploads/', name='Files', endpoint='files'))

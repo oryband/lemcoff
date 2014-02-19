@@ -1,0 +1,16 @@
+{% extends 'admin/file/list.html' %}
+
+{% block access_control %}
+{{ super() }}
+{% include 'admin/logout_button.html' %}
+{% endblock %}
+
+{% block list_header %}
+    {{ super() }}
+    <th>Thumbnail</th>
+{% endblock %}
+
+{# {% block list_row %} #}
+{#     {{ super() }} #}
+{#     <th>Thumbnail</th> #}
+{# {% endblock %} #}
