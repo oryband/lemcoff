@@ -8,7 +8,10 @@ from flask.ext.login import UserMixin
 from wtforms import fields, validators
 from wtforms.form import Form
 
-from app import app, static
+from app import app
+
+path = op.dirname(__file__)
+static = op.join(path, 'static')
 
 
 class MyUser(UserMixin):
@@ -101,5 +104,5 @@ init_login()
 
 admin = admin.Admin(app, 'Admin', index_view=MyAdminIndexView(name='Login'))
 
-admin.add_view(PageAdmin(op.join(static, 'pages'), '/static/pages/', name='Pages', endpoint='pages'))
-admin.add_view(UploadAdmin(op.join(static, 'uploads'), '/static/uploads/', name='Files', endpoint='files'))
+admin.add_view(PageAdmin(op.join(path, 'pages'), base_url='/', name='Pages', endpoint='pages'))
+admin.add_view(UploadAdmin(op.join(static, 'uploads'), base_url='/static/uploads/', name='Files', endpoint='files'))

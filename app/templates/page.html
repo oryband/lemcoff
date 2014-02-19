@@ -1,18 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-
 <section>
-  {% if page.title %}<header><h1>{{ page.title|capitalize }}</h1></header>{% endif %}
-
-  {% if page.summary is not none %}<p>{{ page.summary }}</p>{% endif %}
-
-  {% for entry in entries|sort(attribute='order') %}
-  <div>
-    <h2>{{ entry.title }}</h2>
-    <p>{{ entry.body }}</p>
-  </div>
-  {% endfor %}
+  {{ page.html|safe }}
 </section>
-
 {% endblock %}
