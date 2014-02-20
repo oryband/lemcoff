@@ -10,7 +10,12 @@
     <th>Thumbnail</th>
 {% endblock %}
 
-{# {% block list_row %} #}
-{#     {{ super() }} #}
-{#     <th>Thumbnail</th> #}
-{# {% endblock %} #}
+{% block list_row %}
+    {{ super() }}
+    <td>
+      {# {% if get_file_url(path)|safe is #}
+      <div class="image-thumbnail">
+        <a href={{ get_file_url(path)|safe }} target="_blank"><img src="{{ get_file_url(path)|safe }}"/></a>
+      </div>
+    </td>
+{% endblock %}

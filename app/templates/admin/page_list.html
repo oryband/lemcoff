@@ -4,3 +4,36 @@
 {{ super() }}
 {% include 'admin/logout_button.html' %}
 {% endblock %}
+
+{# Add edit 'pencil' icon to edit pages' content.
+Note this icon's original behaviour is to rename files,
+but in this case we use it to EDIT instead of RENAME
+#}
+{% block list_row_actions scoped %}
+{# {% if admin_view.can_rename and path and name != '..' %} #}
+{# This line was changed to the following one, th  rest is unchaged: #}
+{% if path and name != '..' %}
+<a class="icon" href="{{ url_for('.edit', path=path) }}">
+  <i class="icon-pencil"></i>
+</a>
+{% endif %}
+{%- if admin_view.can_delete and path -%}
+{% if is_dir %}
+{% if name != '..' and admin_view.can_delete_dirs %}
+<form class="icon" method="POST" action="{{ url_for('.delete') }}">
+  <input type="hidden" name="path" value="{{ path }}"></input>
+  <button onclick="return confirm('{{ _gettext('Are you sure you want to delete \\\'%(name)s\\\' recursively?', name=name) }}')">
+    <i class="icon-remove"></i>
+  </button>
+</form>
+{% endif %}
+{% else %}
+<form class="icon" method="POST" action="{{ url_for('.delete') }}">
+  <input type="hidden" name="path" value="{{ path }}"></input>
+  <button onclick="return confirm('{{ _gettext('Are you sure you want to delete \\\'%(name)s\\\'?', name=name) }}')">
+    <i class="icon-remove"></i>
+  </button>
+</form>
+{% endif %}
+{%- endif -%}
+{% endblock %}

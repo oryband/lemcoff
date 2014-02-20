@@ -1,9 +1,13 @@
+import os
 import os.path as op
+from operator import itemgetter
 
-from flask import url_for, redirect, request
+from flask import url_for, redirect, request, flash
 from flask.ext import admin, login
 from flask.ext.admin import expose
 from flask.ext.admin.contrib.fileadmin import FileAdmin
+from flask.ext.admin.babel import gettext
+from flask.ext.admin._compat import urljoin
 from flask.ext.login import UserMixin
 from wtforms import fields, validators
 from wtforms.form import Form
@@ -89,17 +93,99 @@ class PageAdmin(FileAdmin):
         else:
             return super(PageAdmin, self).index()
 
+    def _get_file_url(self, path):
+        """Overriding private method to modify .md urls to their respective
+        markdown-rendered pages.
+
+        Original source in flask_admin/contrib/fileadmin.py
+        """
+        if self.is_file_editable(path):
+            if path[-3:] == '.md':
+                # Truncate '.md' extension from url.
+                return url_for(".edit", path='%s/' % path[:-3])
+            else:
+                return url_for(".edit", path=path)
+        else:
+            base_url = self.get_base_url()
+            if path[-3:] == '.md':
+                # Like above.
+                return urljoin(base_url, '%s/' % path[:-3])
+            else:
+                return urljoin(base_url, path)
+
 
 class UploadAdmin(FileAdmin):
     """Other file upload/edit (images, videos, etc.)"""
     list_template = 'admin/upload_list.html'
 
+# TODO Send to template info if file is image or not.
     @expose('/')
     def index(self):
         if not login.current_user.is_authenticated():
             return redirect(url_for('admin.index'))
         else:
-            return super(UploadAdmin, self).index()
+            # return super(UploadAdmin, self).index()
+            return self.oindex()
+
+    # @expose('/')
+    # @expose('/b/<path:path>')
+    def oindex(self, path=None):
+        """
+            Index view method
+
+            :param path:
+                Optional directory path. If not provided, will use the base directory
+        """
+        # Get path and verify if it is valid
+        base_path, directory, path = self._normalize_path(path)
+
+        if not self.is_accessible_path(path):
+            flash(gettext(gettext('Permission denied.')))
+            return redirect(self._get_dir_url('.index'))
+
+        # Get directory listing
+        items = []
+
+        # Parent directory
+        if directory != base_path:
+            parent_path = op.normpath(op.join(path, '..'))
+            if parent_path == '.':
+                parent_path = None
+
+            items.append(('..', parent_path, True, 0))
+
+        for f in os.listdir(directory):
+            fp = op.join(directory, f)
+            rel_path = op.join(path, f)
+
+            if self.is_accessible_path(rel_path):
+                items.append((f, rel_path, op.isdir(fp), op.getsize(fp)))
+
+        # Sort by name
+        items.sort(key=itemgetter(0))
+
+        # Sort by type
+        items.sort(key=itemgetter(2), reverse=True)
+
+        # Generate breadcrumbs
+        accumulator = []
+        breadcrumbs = []
+        for n in path.split(os.sep):
+            accumulator.append(n)
+            breadcrumbs.append((n, op.join(*accumulator)))
+
+        # Actions
+        actions, actions_confirmation = self.get_actions_list()
+
+        print items
+        return self.render(self.list_template,
+                           dir_path=path,
+                           breadcrumbs=breadcrumbs,
+                           get_dir_url=self._get_dir_url,
+                           get_file_url=self._get_file_url,
+                           items=items,
+                           actions=actions,
+                           actions_confirmation=actions_confirmation)
 
 
 init_login()
