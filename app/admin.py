@@ -76,9 +76,11 @@ class PageAdmin(FileAdmin):
     can_delete_dirs = False
     can_mkdir = False
     can_rename = False
-    allowed_extensions = editable_extensions = ('jpg', 'jpeg', 'png', 'gif', 'tif', 'tiff', 'bmp')
+    allowed_extensions = None
+    editable_extensions = ('md')
 
     list_template = 'admin/page_list.html'
+    edit_template = 'admin/page_edit.html'
 
     @expose('/')
     def index(self):

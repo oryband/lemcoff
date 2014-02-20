@@ -5,7 +5,6 @@ from app import app, DEBUG
 
 
 FLATPAGES_AUTO_RELOAD = DEBUG  # TODO reload pages on page add/edit/delete
-# FLATPAGES_ROOT = 'static/pages'
 FLATPAGES_EXTENSION = '.md'
 # FLATPAGES_MARKDOWN_EXTENSIONS = ['video']  # TODO complete this
 app.config.from_object(__name__)
