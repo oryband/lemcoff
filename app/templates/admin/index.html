@@ -1,13 +1,10 @@
 {% extends 'admin/master.html' %}
 
-{% block access_control %}
-{{ super() }}
-{% include 'admin/logout_button.html' %}
-{% endblock %}
-
 {% block body %}
 {{ super() }}
 {% if current_user.is_authenticated() %}
-<p>Please <a href="{{ url_for('admin.logout_view') }}">log out</a> first.</p>
+<div class="alert alert-info">
+  Please <strong><a href="{{ url_for('admin.logout_view') }}">log out</a></strong> first.
+</div>
 {% endif %}
 {% endblock %}

@@ -1,10 +1,5 @@
 {% extends 'admin/file/list.html' %}
 
-{% block access_control %}
-{{ super() }}
-{% include 'admin/logout_button.html' %}
-{% endblock %}
-
 {% block list_header %}
     {{ super() }}
     <th>Thumbnail</th>
@@ -13,9 +8,10 @@
 {% block list_row %}
     {{ super() }}
     <td>
-      {# {% if get_file_url(path)|safe is #}
+      {% if is_image(path) %}
       <div class="image-thumbnail">
         <a href={{ get_file_url(path)|safe }} target="_blank"><img src="{{ get_file_url(path)|safe }}"/></a>
       </div>
+      {% endif %}
     </td>
 {% endblock %}

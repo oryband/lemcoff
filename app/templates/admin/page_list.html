@@ -1,17 +1,12 @@
 {% extends 'admin/file/list.html' %}
 
-{% block access_control %}
-{{ super() }}
-{% include 'admin/logout_button.html' %}
-{% endblock %}
-
 {# Add edit 'pencil' icon to edit pages' content.
 Note this icon's original behaviour is to rename files,
 but in this case we use it to EDIT instead of RENAME
 #}
 {% block list_row_actions scoped %}
 {# {% if admin_view.can_rename and path and name != '..' %} #}
-{# This line was changed to the following one, th  rest is unchaged: #}
+{# This line was changed to the following one, the rest is unchaged: #}
 {% if path and name != '..' %}
 <a class="icon" href="{{ url_for('.edit', path=path) }}">
   <i class="icon-pencil"></i>

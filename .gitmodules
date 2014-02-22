@@ -1,3 +1,3 @@
-[submodule "app/static/js/pagedown-bootstrap"]
-	path = app/static/js/pagedown-bootstrap
+[submodule "app/static/js/vendor/pagedown-bootstrap"]
+	path = app/static/js/vendor/pagedown-bootstrap
 	url = https://github.com/kevinoconnor7/pagedown-bootstrap.git
