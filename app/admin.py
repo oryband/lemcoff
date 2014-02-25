@@ -1,36 +1,40 @@
-import os
 import os.path as op
-from operator import itemgetter
+from datetime import timedelta
 
-from flask import url_for, redirect, request, flash
+from flask import url_for, redirect, request, session
 from flask.ext import admin, login
 from flask.ext.admin import expose
 from flask.ext.admin.contrib.fileadmin import FileAdmin
-from flask.ext.admin.babel import gettext
 from flask.ext.admin._compat import urljoin
 from flask.ext.login import UserMixin
 from wtforms import fields, validators
 from wtforms.form import Form
+from werkzeug.security import check_password_hash
 
 from app import app
 from views import flatpages
 
 path = op.dirname(__file__)
 static = op.join(path, 'static')
+password_path = op.join(path, 'password.txt')
+
+
+# Settings
+REMEMBER_COOKIE_DURATION = timedelta(hours=1)
+PERMANENT_SESSION_LIFETIME = timedelta(hours=1)
+app.config.from_object(__name__)
 
 
 class MyUser(UserMixin):
     id = 'admin'
 
 
-# TODO Save password properly, not in plaintext!
-password = 'admin'
 class LoginForm(Form):
     """Define login and registration forms (for flask-login)."""
     def validate_login(self, field):
-        print self.password.data
-        if self.password.data != password:
-            raise validators.ValidationError('Invalid password')
+        with open(password_path, 'rb') as f:
+            if not check_password_hash(f.read(), self.password.data):
+                raise validators.ValidationError('Invalid password')
 
     password = fields.PasswordField(validators=[validators.required(),
                                                 validate_login])
@@ -60,12 +64,12 @@ class MyAdminIndexView(admin.AdminIndexView):
     def login_view(self):
         form = LoginForm(request.form)
         if request.method == 'POST' and form.validate():
+            session.permanent = True
             login.login_user(MyUser())
 
         if login.current_user.is_authenticated():
             return redirect(url_for('pages.index'))
 
-        # self._template_args['form'] = form
         return self.render('admin/login.html', form=form)
 
     @expose('/logout/')
@@ -157,7 +161,17 @@ class UploadAdmin(FileAdmin):
 
 init_login()
 
-admin = admin.Admin(app, 'Admin', index_view=MyAdminIndexView(name='Login'), base_template='admin/master.html')
+admin = admin.Admin(app,
+                    name='Admin',
+                    index_view=MyAdminIndexView(name='Login'),
+                    base_template='admin/master.html')
 
-admin.add_view(PageAdmin(op.join(path, 'pages'), base_url='/', name='Pages', endpoint='pages'))
-admin.add_view(UploadAdmin(op.join(static, 'uploads'), base_url='/static/uploads/', name='Files', endpoint='files'))
+admin.add_view(PageAdmin(op.join(path, 'pages'),
+                         base_url='/',
+                         name='Pages',
+                         endpoint='pages'))
+
+admin.add_view(UploadAdmin(op.join(static, 'uploads'),
+                           base_url='/static/uploads/',
+                           name='Files',
+                           endpoint='files'))

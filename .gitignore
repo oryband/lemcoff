@@ -1,6 +1,7 @@
 /venv/
 /node_modules/
 /app/static/uploads/
+/app/password.txt
 *.pyc
 *.swp
 .DS_Store

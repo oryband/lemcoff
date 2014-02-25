@@ -4,15 +4,19 @@ from flask_flatpages import FlatPages
 from app import app, DEBUG
 
 
+# Settings
 FLATPAGES_AUTO_RELOAD = DEBUG
 FLATPAGES_EXTENSION = '.md'
 app.config.from_object(__name__)
+
+
 flatpages = FlatPages(app)
 
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    page = flatpages.get_or_404('index')
+    return render_template('index.html', page=page, name='index')
 
 
 @app.errorhandler(404)

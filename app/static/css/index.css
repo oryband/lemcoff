@@ -1,11 +1,12 @@
 #avatar{display:block;margin:0 auto 50px auto;height:auto;width:60vw;max-width:411px}
 .main ul{list-style-type:none}
+#contact h1{margin-top:0}
 #contact a{color:#00041f;}
 #contact a:hover{color:#ffe99c}
 #logo{display:none}
 @media only screen and (min-width: 750px){#avatar{float:right;width:40vw}
 }@media only screen and (min-width: 990px){#about{margin-bottom:170px}
-#research-interests{margin-top:-130px;float:left}
+#research-interests{margin-top:-23px;float:left}
 #contact{float:right;}
 #contact #contact-details{float:left;margin-right:112px}
 #logo{display:inline;float:right}
