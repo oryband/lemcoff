@@ -13,6 +13,7 @@ from wtforms import fields, validators
 from wtforms.form import Form
 
 from app import app
+from views import flatpages
 
 path = op.dirname(__file__)
 static = op.join(path, 'static')
@@ -96,12 +97,17 @@ class PageAdmin(FileAdmin):
     def on_edit_file(self, full_path, path):
         """Prepends a new line after edit, otherwise FlatPages' YAML doesn't
         render it.
+
+        Also reloads markdown pages.
         """
         with open(full_path, 'r+b') as f:
             data = f.read()
             f.seek(0)
             f.write('\n'+data)
             f.truncate()
+
+        flatpages.reload()  # Reload markdown.
+
         return super(PageAdmin, self).on_edit_file(full_path, path)
 
     def _get_file_url(self, path):
