@@ -1,5 +1,10 @@
 {% extends 'admin/file/edit.html' %}
 
+{% block head_tail %}
+{{ super() }}
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,700italic,300,700|Merriweather' rel='stylesheet' type='text/css'>
+{% endblock %}
+
 {% block body %}
 <div class="alert alert-info alert-dismissable">
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

@@ -29,4 +29,4 @@ def send_text_file(file_name):
 @app.route('/<name>/')
 def post(name):
     page = flatpages.get_or_404(name)
-    return render_template('page.html', page=page)
+    return render_template('page.html', page=page, name=name)

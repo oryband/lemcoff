@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/page.css') }}"/>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/%s.css' % name) }}"/>
+{% endblock %}
+
 {% block content %}
+{{ super() }}
 <section>
   {{ page.html|safe }}
 </section>

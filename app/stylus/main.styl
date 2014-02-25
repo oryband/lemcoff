@@ -1,61 +1,45 @@
-// Color variables
+@import 'import/variables'
+@import 'import/utils'
 
-main_color = #222
-main_background = white
-
-header_border_color = #eee
-
-a_color = darkgrey
-time_color = a_color
-code_border_color = a_color
-
-selection_color = #a8F26a
-
-color_transition_time = 0.2s
-
-// Functions
-
-border-radius()
-  -webkit-border-radius: arguments
-  -moz-border-radius: arguments
-  border-radius: arguments
-
-transition()
-  -webkit-transition: arguments
-  -moz-transition: arguments
-  -o-transition: arguments
-  transition: arguments
-
-
-// Styling
 
 html,
 button,
 input,
 select,
 textarea
-  color: main_color
+  color: main-color
 
 body
-  background: main_background
-  background-image: url("/static/img/bg.png")
-  font: 1.2em/1.4 Merriweather, serif
+  background: bg
+  font: p-weight p-size/p-line-height p-font
 
 ::-moz-selection,
-::selection
-  background: selection_color
+::-webkit-selection,
+::selection,
+  background: selection-color
   text-shadow: none
 
 hr
   border: 0
-  border-top: 1px solid header_border_color
+  border-top: 1px solid footer-border-color
   display: block
   height: 1px
   margin: 1em 0
   padding: 0
 
 img
+  display: block
+  margin: 0 auto
   vertical-align: middle
+  max-width: 100%
+
+a
+  text-decoration: none
+  transition(color color-transition-time ease-out)
+  color: a-color
+
+  &:hover
+    color: a-hover-color
 
 fieldset
   border: 0
@@ -65,95 +49,57 @@ fieldset
 textarea
   resize: vertical
 
-.highlight pre  // Pygments syntax box
-  border: 1px solid code_border_color
-  border-radius(10px)
-  padding 10px
-  font-size: 0.8em
-  line-height: 1.5em
-
-code
-  font-family: Monaco, DejaVu Sans Mono, Courier New, monospace
-
-.chromeframe
-  background: #ccc
-  color: #000
-  margin: 0.2em 0
-  padding: 0.2em 0
-
 .wrapper
   margin: 0 5%
   width: 90%
 
 .header-container
-  font-family: Vollkorn, serif
-  font-weight: normal
+  padding: 2em 0 0.4em 0
+  background: primary-header-bg
 
-  .wrapper
-    margin-top: 1em
+.nav-container
+  padding: 0.4em
+  background: secondary-header-bg
 
-  h1
-    margin: 0
+.header-container,
+.nav-container
+  font-family: h-font
+  font-weight: h-weight
 
   a
-    color: inherit
-    text-decoration: none
+    color: main-color
     padding: 12px 0
-    transition(color color_transition_time ease-out)
 
     &:hover
-      color: selection_color
-
-#avatar
-  display: none
+      color: a-hover-color
 
 .main-container
   .wrapper
-    border-top: solid 1px header_border_color
+    padding-top: 2.5em
 
   h1
-    font-size: 1.4em
-    line-height: 1.86em
-
-    &:first-of-type
-      margin-top: 0
+    font-size: p-size*1.5
+    line-height: p-line-height
+    font-weight: p-weight
 
   h2
-    font-size: 1.2em
-
-  h3
-    font-size: 1em
-
-  a
-    color: a_color
-    text-decoration: none
-    transition(color color_transition_time ease-out)
-
-    &:hover
-      color: selection_color
-
-  #blog a
-    color: inherit
-
-    &:hover
-      color: selection_color
+    font-size: p-size*1.1
+    line-height: p-line-height
+    font-weight: p-weight
 
 
 .footer-container,
 .main aside
-  border-top: 1px solid header_border_color
+  border-top: 1px solid footer-border-color
   font-size: 0.6em
   line-height: 2em
   a
     color: inherit
     text-decoration: none
-    transition(color color_transition_time ease-out)
+    transition(color color-transition-time ease-out)
 
     &:hover
-      color: selection_color
-
-.title
-  margin-bottom: 0
+      color: selection-color
 
 // Menu
 
@@ -165,9 +111,10 @@ nav
   li
     margin-top 0.32em
 
+    &:first-of-type
+      margin-left: 0
+
   a
-    float: left
-    margin: 0 1.7%
     padding: 15px 0
     text-align: left
 
@@ -180,201 +127,41 @@ nav
   aside
     padding: 0px 5% 10px
 
-ul
-  list-style: none
-  padding-left: 0
+  section
+    margin-bottom: 30px
 
-li
-  margin-bottom: 10px
+  ul
+    // list-style: none
+    padding-left: 0
 
-  &:last-child
-    margin-bottom: 0
+  li
+    margin-bottom: 10px
 
-li a
-  text-decoration: none
+    &:last-child
+      margin-bottom: 0
 
-time
-  color: time_color
-  float: left
-  font-size: 0.8em
-  margin-right: 1em
-  width: 6.5em
-
-#blog div
-  margin-left: 6.5em
+  li a
+    text-decoration: none
 
 // Footer
 
-.footer-container footer
+footer
   padding: 0
 
-  .footer-left
-    float: left
-    width: 33.33333%
-    text-align: left
-    
-  .footer-center
-    float: left
-    width: 33.33333%
-    // text-align: center
+.footer-left
+  display: none
+  color: footer-border-color
 
-  .footer-right
-    float: left
-    width: 33.33333%
-    text-align: right
+  
+.footer-center
+  float: left
+
+.footer-right
+  float: right
 
 
-// IE Fixes
-
-nav ul li
-  display: inline
-
-.oldie nav a
-  margin: 0 0.7%
-
-.ie7 .title
-  padding-top: 20px
-
-
-@media only screen and (min-width: 500px)
-
-  // Menu
-
-  .title
-  nav ul li
-    float: left
-
-  nav
-    float: right
-
-    li
-      margin-left: 2em
-    a
-      margin: 0
-
-  #avatar
-    display: block
-    float: right
-    margin: 0 0 10px 10px
-
-  #research-interests
-    float: left
-
-  #contact
-    float: right
-
-
-@media only screen and (min-width: 750px)
-
-  // Main
-
-  .wrapper
-    margin: 0 auto
-    width: 700px
-
-
-// Helper classes
-
-.ir
-  background-color: transparent
-  border: 0
-  overflow: hidden
-  *text-indent: -9999px
-
-.ir:before
-  content: ""
-  display: block
-  width: 0
-  height: 150%
-
-.hidden
-  display: none !important
-  visibility: hidden
-
-.visuallyhidden
-  border: 0
-  clip: rect(0 0 0 0)
-  height: 1px
-  margin: -1px
-  overflow: hidden
-  padding: 0
-  position: absolute
-  width: 1px
-
-.visuallyhidden.focusable:active,
-.visuallyhidden.focusable:focus
-  clip: auto
-  height: auto
-  margin: 0
-  overflow: visible
-  position: static
-  width: auto
-
-.invisible
-  visibility: hidden
-
-.clearfix:before,
-.clearfix:after
-  content: " "
-  display: table
-
-.clearfix:after
-  clear: both
-
-.clearfix
-  *zoom: 1
-
-
-// Print styles
-
-@media print
-  *
-    background: transparent !important
-    color: #000 !important  // Black prints faster: h5bp.com/s
-    box-shadow: none !important
-    text-shadow: none !important
-
-  a,
-  a:visited
-    text-decoration: underline
-
-  a[href]:after
-    content: " (" attr(href) ")"
-
-  abbr[title]:after
-    content: " (" attr(title) ")"
-
-  // Don't show links for images, or javascript/internal links
-
-  .ir a:after,
-  a[href^="javascript:"]:after,
-  a[href^="#"]:after
-    content: ""
-
-  pre,
-  blockquote
-    border: 1px solid #999
-    page-break-inside: avoid
-
-  thead
-    display: table-header-group  // h5bp.com/t
-
-  tr,
-  img
-    page-break-inside: avoid
-
-  img
-    max-width: 100% !important
-
-  @page
-    margin: 0.5cm
-
-  p,
-  h2,
-  h3
-    orphans: 3
-    widows: 3
-
-  h2,
-  h3
-    page-break-after: avoid
+// Media, helper classes should come after everything else.
+@import 'import/fixes'
+@import 'import/screen'
+@import 'import/helper'
+@import 'import/print'

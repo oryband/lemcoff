@@ -11,18 +11,14 @@
   <meta name="author" content="Prof. Gabriel Lemcoff">
   <meta name="viewport" content="width=device-width">
 
-  <link href='http://fonts.googleapis.com/css?family=Merriweather:400,900,900italic,400italic|Vollkorn' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,700italic,300,700|Merriweather' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.min.css') }}"/>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
 
   <link type="text/plain" rel="author" href="humans.txt" />
 
-  {# <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon-precomposed.png"> #}
-  {#  {% assign reses = "144|120|114|72|57" | split: "|" %} {% comment %} TODO Add 120 image {% endcomment %} #}
-  {# {% for res in reses %} #}
-  {#   <link rel="apple-touch-icon" sizes="{{ res }}" href="/apple-touch-icon-{{ res }}x{{ res }}-precomposed.png"> #}
-  {# {% endfor %} #}
+  {% block css %}{% endblock %}
 
   <!--[if lt IE 9]>
   <script src="js/vendor/html5-3.6-respond-1.1.0.min.js"></script>
@@ -34,18 +30,21 @@
   <![endif]-->
 
   <div class="header-container">
-    <header class="wrapper clearfix">
-      <h1 class="title"><a href="/">Lemcoff Group</a></h1>
-      <nav>
-        <ul>
-          <li><a href="/research/">RESEARCH</a></li>
-          <li><a href="/publications/">PUBLICATIONS</a></li>
-          <li><a href="/members/">MEMBERS</a></li>
-          <li><a href="/community/">COMMUNITY</a></li>
-          <li><a href="/links/">LINKS</a></li>
-        </ul>
-      </nav>
+    <header class="clearfix">
+      <h1 class="title wrapper"><a href="/">Lemcoff Group</a></h1>
     </header>
+  </div>
+
+  <div class="nav-container">
+    <nav class="wrapper clearfix">
+      <ul>
+        <li><a href="/research/">Research</a></li>
+        <li><a href="/publications/">Publications</a></li>
+        <li><a href="/members/">Members</a></li>
+        <li><a href="/community/">Community</a></li>
+        <li><a href="/links/">Links</a></li>
+      </ul>
+    </nav>
   </div>
 
   <div class="main-container">
@@ -55,10 +54,10 @@
   </div>
 
   <div class="footer-container">
-    <footer class="wrapper">
-      <p class="footer-left">&nbsp;</p>
-      <p class="footer-center"><a href="http://www.bgu.ac.il/~lemcoff">&copy; Gabriel Lemcoff 2014</a></p>
-      <p class="footer-right"><a href="http://oryband.com">Designed &amp; developed by Ory Band</a></p>
+    <footer class="wrapper clearfix">
+      <p class="footer-left"><a href="/admin/">Login</a></p>
+      <p class="footer-center"><a href="/">&copy; Gabriel Lemcoff 2014</a></p>
+      <p class="footer-right"><a href="http://oryband.com/">Designed &amp; developed by Ory Band</a></p>
       <div style="clear: both;"></div>
     </footer>
   </div>

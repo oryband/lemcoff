@@ -1,0 +1,48 @@
+@import 'import/variables'
+
+#avatar
+  display: block
+  margin: 0 auto 50px auto
+  height: auto
+  width: 60vw
+  max-width: 411px
+
+.main ul
+  list-style-type: none
+
+#contact a
+  color: main-color
+
+  &:hover
+    color: a-hover-color
+
+#logo
+  display: none
+
+
+@media only screen and (min-width: 750px)
+  
+  #avatar
+    float: right
+    width: 40vw
+
+
+@media only screen and (min-width: 990px)
+
+  #about
+    margin-bottom: 170px
+
+  #research-interests
+    margin-top: -130px
+    float: left
+
+  #contact
+    float: right
+
+    #contact-details
+      float: left
+      margin-right: 112px
+
+  #logo
+    display: inline
+    float: right

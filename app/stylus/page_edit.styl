@@ -1,7 +1,6 @@
-border-radius()
-  -webkit-border-radius: arguments
-  -moz-border-radius: arguments
-  border-radius: arguments
+@import 'import/variables'
+@import 'import/utils'
+
 
 .control-label
   display: none
@@ -14,18 +13,62 @@ border-radius()
   display: inline-block
   width: 49%
 
-textbox-height = 600px
+textbox-height = 400px
 .wmd-input
-  height: textbox-height
-  vertical-align: top !important
   resize: vertical
+  float: left
+  vertical-align: top !important
+  height: textbox-height
 
 .wmd-preview
-  height: textbox-height
-  margin-right: 0
-  padding: 6px
-  float: right
   overflow: scroll
   resize: both
+  float: right
+  height: textbox-height
+  margin-right: 0
   border: 1px solid #ccc
   border-radius(4px)
+  padding: 6px
+
+  // From here on it's the same as in main.styl
+
+  font: p-weight p-size/p-line-height p-font
+
+  img
+    display: block
+    vertical-align: middle
+    margin: 0 auto
+    max-width: 100%
+
+  hr
+    border: 0
+    border-top: 1px solid footer-border-color
+    display: block
+    height: 1px
+    margin: 1em 0
+    padding: 0
+
+  h1,
+  h2
+    margin-top: 1.5em
+
+  h1
+    font-size: p-size*1.5
+    line-height: p-line-height
+    font-weight: p-weight
+
+  h2
+    font-size: p-size*1.1
+    line-height: p-line-height
+    font-weight: p-weight
+
+  p
+    margin: 1em 0
+
+  a
+    color: a-color
+    text-decoration: none
+    transition(color color-transition-time ease-out)
+
+    &:hover
+      color: a-hover-color

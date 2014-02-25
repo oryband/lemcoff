@@ -1,10 +1,15 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block css %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}"/>
+{% endblock %}
 
+{% block content %}
+{{ super() }}
 <section id="about">
   <img src="http://www.bgu.ac.il/~lemcoff/images/photos/gabi.jpg" alt="Photo of Prof. Gabriel Lemcoff" width="204" height="278" id="avatar">
-  <header><h1>Prof. N. Gabriel Lemcoff</h1></header>
+  <header><h1>N. Gabriel Lemcoff</h1></header>
   <p>
     Professor, Head of Department<br />
     Born: 1969, Argentina<br />
@@ -30,12 +35,16 @@
 </section>
 
 <section id="contact">
-  <header><h1>Contact</h1></header>
-  <ul>
-    <li>Phone: +972-8-6461196</li>
-    <li>Fax: +972-8-6461740</li>
-    <li>Email: lemcoff@bgu.ac.il</li>
-  </ul>
+  <div id="contact-details">
+    <header><h1>Contact</h1></header>
+    <p>
+      Phone: +972-8-6461196<br />
+      Fax: +972-8-6461740<br />
+      Email: <a href="mailto:lemcoff@bgu.ac.il">lemcoff@bgu.ac.il</a><br />
+    </p>
+  </div>
+  <a id="logo" href="http://www.bgu.ac.il/teva/chem/">
+    <img src="{{ url_for('static', filename='img/bgu_logo.png') }}" alt="Photo of Prof. Gabriel Lemcoff" width="91" height="133">
+  </a>
 </section>
-
 {% endblock %}
