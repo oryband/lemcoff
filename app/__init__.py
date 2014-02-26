@@ -1,8 +1,11 @@
 from flask import Flask
 
+from config import debug, secret_key
 
-DEBUG = True
+
 app = Flask(__name__)
-app.secret_key = 'secret'
+app.config.update(DEBUG=debug,
+                  SECRET_KEY=secret_key)
+
 
 from app import views, admin

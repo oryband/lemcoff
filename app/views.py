@@ -1,11 +1,11 @@
 from flask import render_template
 from flask_flatpages import FlatPages
 
-from app import app, DEBUG
+from app import app
 
 
 # Settings
-FLATPAGES_AUTO_RELOAD = DEBUG
+FLATPAGES_AUTO_RELOAD = False
 FLATPAGES_EXTENSION = '.md'
 app.config.from_object(__name__)
 

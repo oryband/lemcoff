@@ -2,6 +2,7 @@
 /node_modules/
 /app/static/uploads/
 /app/password.txt
+/app/config.py
 *.pyc
 *.swp
 .DS_Store

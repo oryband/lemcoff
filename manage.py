@@ -7,7 +7,8 @@ import sys
 from flask.ext.script import Manager, Server, Command, Option
 from werkzeug.security import generate_password_hash
 
-from app import app, DEBUG
+from app import app
+from app import config
 
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -40,8 +41,8 @@ class Password(Command):
 manager = Manager(app)
 
 manager.add_command("runserver", Server(
-    use_debugger=DEBUG,
-    use_reloader=DEBUG,
+    use_debugger=config.debug,
+    use_reloader=config.debug,
     host='0.0.0.0')
 )
 
