@@ -1,6 +1,4 @@
-# Lemcoff Group website
-
-http://www.bgu.ac.il/~lemcoff
+# [Lemcoff Group website](http://www.bgu.ac.il/~lemcoff)
 
 ## Dependencies:
 
