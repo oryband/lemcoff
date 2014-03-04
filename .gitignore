@@ -1,6 +1,7 @@
 /venv/
 /node_modules/
 /app/static/uploads/
+/app/build/
 /app/password.txt
 /app/config.py
 *.pyc
