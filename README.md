@@ -9,7 +9,7 @@ See [pip.txt][pip] and [npm.txt][npm] for package info & versions.
 
 ## Guides
 
-See [app/static/humans.txt][humans.txt] for all the apps & tool used in this website.
+See [app/static/humans.txt][humans.txt] for all the apps & tools used in this website.
 
 
 [lemcoff]: http://www.bgu.ac.il/~lemcoff
