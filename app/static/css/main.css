@@ -8,8 +8,9 @@ a:hover{color:#ffe99c}
 fieldset{border:0;margin:0;padding:0}
 textarea{resize:vertical}
 .wrapper{margin:0 5%;width:90%}
-.header-container{padding:2em 0 .4em 0;background:#9ca7ff}
-.nav-container{padding:.4em;background:#c8ceff}
+.header-container{padding:2em 0 .4em 0;background:#d53323;}
+.header-container #logo{display:none}
+.nav-container{padding:.4em;background:#dc6c61}
 .header-container,.nav-container{font-family:'Merriweather',serif;font-weight:400;}
 .header-container a,.nav-container a{color:#00041f;padding:12px 0;}
 .header-container a:hover,.nav-container a:hover{color:#ffe99c}
@@ -40,6 +41,8 @@ footer{padding:0}
 @media only screen and (min-width: 570px){nav li{margin:0 0 0 2em;float:left;}
 nav li:first-of-type{margin-left:0}
 nav li a{margin:0;font-size:2.5vw}
+.header-container{padding:5em 0 .4em 0;}
+.header-container #logo{display:block;float:right;margin:-150px 30px 0 0}
 }@media only screen and (min-width: 750px){.wrapper{margin:0 auto;width:700px}
 nav li a{font-size:1em}
 .footer-left,.footer-center,.footer-right{float:left;width:33.33333%}

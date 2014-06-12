@@ -11,15 +11,8 @@
   <img src="http://www.bgu.ac.il/~lemcoff/images/photos/gabi.jpg" alt="Photo of Prof. Gabriel Lemcoff" width="204" height="278" id="avatar">
   <header><h1>N. Gabriel Lemcoff</h1></header>
   <p>
-    Professor, Head of Department<br />
-    Born: 1969, Argentina<br />
-    Ph.D.: 2002, Tel-Aviv University<br />
+    Associate Professor<br />
   </p>
-</section>
-
-<section id="research-interests">
-  <header><h1>Research Interests</h1></header>
-    {{ page.html|safe }}
 </section>
 
 <section id="contact">
@@ -31,8 +24,10 @@
       Email: <a href="mailto:lemcoff@bgu.ac.il">lemcoff@bgu.ac.il</a><br />
     </p>
   </div>
-  <a id="logo" href="http://www.bgu.ac.il/teva/chem/">
-    <img src="{{ url_for('static', filename='img/bgu_logo.png') }}" alt="Photo of Prof. Gabriel Lemcoff" width="91" height="133">
-  </a>
+</section>
+
+<section id="research-interests">
+  <header><h1>Research Interests</h1></header>
+    {{ page.html|safe }}
 </section>
 {% endblock %}

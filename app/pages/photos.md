@@ -1,5 +1,5 @@
 
-Community
+Photos
 =========
 
 Neveh-Hadassah School (May-09)
