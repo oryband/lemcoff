@@ -14,8 +14,9 @@ See [pip.txt][pip] and [package.json][package] for package info & versions.
  1. `git clone --recursive https://github.com/oryband/lemcoff.git`
  2. `pip install --requirement pip.txt`
  3. `npm install`
- 4. Set/Reset password: `python manage.py change --password <password>`
- 5. In order to run development (NOT production apache) server: `python manage runserver`
+ 4. `./stylus.sh` in order to generate CSS from Stylus files.
+ 5. Set/Reset password: `python manage.py change --password <password>`
+ 6. In order to run development (NOT production apache) server: `python manage runserver`
 
 ## Guides
 
