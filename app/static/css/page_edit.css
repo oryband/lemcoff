@@ -1,13 +1,1 @@
-.control-label{display:none}
-.controls{margin-left:0 !important}
-.wmd-input,.wmd-preview{display:inline-block;width:49%}
-.wmd-input{resize:vertical;float:left;vertical-align:top !important;height:400px}
-.wmd-preview{overflow:scroll;resize:both;float:right;height:400px;margin-right:0;border:1px solid #ccc;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;padding:6px;font:300 1.2em/1.4 'Open Sans',sans-serif;}
-.wmd-preview img{display:block;vertical-align:middle;margin:0 auto;max-width:100%}
-.wmd-preview hr{border:0;border-top:1px solid #eee;display:block;height:1px;margin:1em 0;padding:0}
-.wmd-preview h1,.wmd-preview h2{margin-top:1.5em}
-.wmd-preview h1{font-size:1.7999999999999998em;line-height:1.4;font-weight:300}
-.wmd-preview h2{font-size:1.32em;line-height:1.4;font-weight:300}
-.wmd-preview p{margin:1em 0}
-.wmd-preview a{color:#7d86cc;text-decoration:none;-webkit-transition:color .2s ease-out;-moz-transition:color .2s ease-out;-o-transition:color .2s ease-out;transition:color .2s ease-out;}
-.wmd-preview a:hover{color:#ffe99c}
+.control-label{display:none}.controls{margin-left:0 !important}.wmd-input,.wmd-preview{display:inline-block;width:49%}.wmd-input{resize:vertical;float:left;vertical-align:top !important;height:400px}.wmd-preview{overflow:scroll;resize:both;float:right;height:400px;margin-right:0;border:1px solid #ccc;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;padding:6px;font:300 1.2em/1.4 'Open Sans',sans-serif;}.wmd-preview img{display:block;vertical-align:middle;margin:0 auto;max-width:100%}.wmd-preview hr{border:0;border-top:1px solid #eee;display:block;height:1px;margin:1em 0;padding:0}.wmd-preview h1,.wmd-preview h2{margin-top:1.5em}.wmd-preview h1{font-size:1.7999999999999998em;line-height:1.4;font-weight:300}.wmd-preview h2{font-size:1.32em;line-height:1.4;font-weight:300}.wmd-preview p{margin:1em 0}.wmd-preview a{color:#7d86cc;text-decoration:none;-webkit-transition:color .2s ease-out;-moz-transition:color .2s ease-out;-o-transition:color .2s ease-out;transition:color .2s ease-out;}.wmd-preview a:hover{color:#ffe99c}
