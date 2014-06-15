@@ -1,0 +1,15 @@
+{
+  "name": "lemcoff",
+  "version": "1.0.0",
+  "description": "Lemcoff research group website.",
+  "dependencies": {
+    "stylus": "^0.42.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/oryband/lemcoff.git"
+  },
+  "author": "Ory Band, http://oryband.com",
+  "license": "Lemcoff Group, All Rights Reserved",
+  "homepage": "https://github.com/oryband/lemcoff"
+}
