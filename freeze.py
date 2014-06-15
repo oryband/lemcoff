@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 
+"""Create static html files from original pages.
+
+Output to ./app/build directory.
+"""
+
 from flask_frozen import Freezer
 from app import app
 
@@ -14,7 +19,7 @@ def pages_generator():
     yield '/publications/'
     yield '/members/'
     yield '/alumni/'
-    yield '/community/'
+    yield '/photos/'
     yield '/links/'
 
 
